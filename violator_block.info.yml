@@ -1,0 +1,4 @@
+name: 'Violator Block'
+type: module
+description: "Displays an emergency notice only under certain conditions."
+core: 8.x

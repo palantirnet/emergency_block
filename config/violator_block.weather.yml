@@ -1,0 +1,3 @@
+weather_station: ''
+threshold: 0
+message: "Dude, it's too cold, stay home"
