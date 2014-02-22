@@ -24,24 +24,15 @@ class WeatherForm extends ConfigFormBase {
    * @param \Drupal\Core\Config\Config $configy
    *   The configuration object.
    */
-  public function __construct(Config $config) {
-    $this->config = $config;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('config.factory')->get('violator_block.weather')
-    );
+  public function __construct() {
+    $this->config = $this->config('violator_block.weather');
   }
 
   /**
    * {@inheritdoc}
    */
   public function getFormID() {
-    return 'drupalgotchi_settings';
+    return 'violator_block_weather';
   }
 
   /**
