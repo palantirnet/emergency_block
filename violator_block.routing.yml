@@ -1,2 +1,16 @@
-## YAML Template.
----
+violator_block.status:
+  path: /admin/config/system/violator
+  defaults:
+    _form: Drupal\violator_block\Form\ViolatorForm
+    _title: 'Violator status'
+  requirements:
+    _permission: 'control violator block'
+
+violator_block.weather:
+  path: /admin/config/system/violator-weather
+  defaults:
+    _form: Drupal\violator_block\Form\WeatherForm
+    _title: 'Violator weather'
+  requirements:
+    _permission: 'administer violator weather settings'
+

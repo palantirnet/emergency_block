@@ -1,2 +1,35 @@
 <?php
 
+/**
+ * Implements hook_permission().
+ */
+function violator_block_permission() {
+  $perms['administer violator weather settings'] = [
+    'title' => t('Set weather settings for the violator block'),
+  ];
+  $perms['control violator block'] = [
+    'title' => t('Enable or disable the violator message'),
+  ];
+
+  return $perms;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function violator_block_menu() {
+  $items['admin/config/system/violator'] = array(
+    'title' => 'Violator status',
+    'description' => 'Set the status of the violator block.',
+    'route_name' => 'violator_block.status',
+  );
+
+  $items['admin/config/system/violator-weather'] = array(
+    'title' => 'Violator weather',
+    'description' => 'Configure the violator block weather usage.',
+    'route_name' => 'violator_block.weather',
+  );
+
+  return $items;
+}
+
