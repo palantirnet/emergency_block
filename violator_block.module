@@ -33,3 +33,9 @@ function violator_block_menu() {
   return $items;
 }
 
+/**
+ * Implements hook_cron().
+ */
+function violator_block_cron() {
+  \Drupal::service('violator_block.weather')->updateTemperature();
+}
