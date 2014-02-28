@@ -3,6 +3,7 @@
 namespace Drupal\violator_block;
 
 use Drupal\Core\Form\ConfigFormBase;
+use Drupal\Core\Config\ConfigFactory;
 
 /**
  * Description of WeatherForm
@@ -21,10 +22,11 @@ class WeatherForm extends ConfigFormBase {
   /**
    * Constructs a WeatherForm object.
    *
-   * @param \Drupal\Core\Config\Config $configy
-   *   The configuration object.
+   * @param \Drupal\Core\Config\ConfigFactory $config_factory
+   *   The factory for configuration objects.
    */
-  public function __construct() {
+  public function __construct(ConfigFactory $config_factory) {
+    parent::__construct($config_factory);
     $this->config = $this->config('violator_block.weather');
   }
 

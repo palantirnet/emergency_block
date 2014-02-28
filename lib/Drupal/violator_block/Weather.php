@@ -4,11 +4,10 @@ namespace Drupal\violator_block;
 
 use Guzzle\Http\Client;
 use Drupal\Core\KeyValueStore\StateInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
 
 /**
- * Description of Weather
- *
- * @author garfield
+ * Configuration form for the weather option of the violator.
  */
 class Weather {
 
@@ -43,7 +42,7 @@ class Weather {
    * @param string $url
    *   The base URL from which to request weather data.
    */
-  public function __construct(Client $guzzle, StateInterface $state, \Drupal\Core\Config\ConfigFactoryInterface $config_factory, $url) {
+  public function __construct(Client $guzzle, StateInterface $state, ConfigFactoryInterface $config_factory, $url) {
     $this->guzzle = $guzzle;
     $this->state = $state;
     $this->config = $config_factory->get('violator_block.weather');
