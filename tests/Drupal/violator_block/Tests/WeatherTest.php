@@ -16,6 +16,14 @@ use Drupal\violator_block\Weather;
  * Tests the Drupalgotchi block.
  */
 class HelloBlockTest extends UnitTestCase {
+
+  /**
+   * The stubbed config factory object.
+   *
+   * @var \PHPUnit_Framework_MockObject_MockBuilder
+   */
+  protected $configFactory;
+
   public static function getInfo() {
     return array(
       'name' => 'Drupalgotchi hello block plugin',
@@ -29,6 +37,16 @@ class HelloBlockTest extends UnitTestCase {
    */
   protected function setUp() {
     parent::setUp();
+
+    $this->configFactory = $this->getConfigFactoryStub(
+      array(
+        'violator_block.weather' => array(
+          'weather_station' => '',
+          'threshold' => 0,
+          'message' => 'Cold',
+        ),
+      )
+    );
 
     // Autoloading is not working for contrib. Load our class to test.
     // See https://drupal.org/node/2025883
@@ -68,7 +86,7 @@ END;
       ->method('set')
       ->with($this->equalTo('violator_block.weather.temp'), $this->equalTo(42));
 
-    $weather = new Weather($guzzle, $state_stub, '');
+    $weather = new Weather($guzzle, $state_stub, $this->configFactory, '');
 
     $weather->updateTemperature();
 
