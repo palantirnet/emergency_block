@@ -88,7 +88,7 @@ class EmergencyViolatorBlock extends BlockBase implements ContainerFactoryPlugin
    * @see \Drupal\block\BlockViewBuilder
    */
   public function build() {
-    $message = $this->weather->isTooCold() ? $this->config->get('message') : $this->state->get('violator_block.message');
+    $message = $this->state->get('violator_block.status') ? $this->state->get('violator_block.message') : $this->config->get('message');
 
     return [
       '#markup' => $message,
