@@ -15,22 +15,22 @@ function violator_block_permission() {
 }
 
 /**
- * Implements hook_menu().
- */
-function violator_block_menu() {
-  $items['admin/config/system/violator'] = array(
-    'title' => 'Violator status',
+* Implements hook_menu_link_defaults().
+*/
+function violator_block_menu_link_defaults() {
+  $links['violator_block.admin.status'] = array(
+    'link_title' => 'Violator status',
     'description' => 'Set the status of the violator block.',
     'route_name' => 'violator_block.status',
+    'parent' => 'system.admin.config.system',
   );
-
-  $items['admin/config/system/violator-weather'] = array(
-    'title' => 'Violator weather',
+  $links['violator_block.admin.weather'] = array(
+    'link_title' => 'Violator weather',
     'description' => 'Configure the violator block weather usage.',
     'route_name' => 'violator_block.weather',
+    'parent' => 'system.admin.config.system',
   );
-
-  return $items;
+  return $links;
 }
 
 /**
