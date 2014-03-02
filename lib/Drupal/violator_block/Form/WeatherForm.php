@@ -62,15 +62,15 @@ class WeatherForm extends ConfigFormBase {
    */
   public function buildForm(array $form, array &$form_state) {
     $form['weather_station'] = array(
-      '#title' => t('Weather station'),
+      '#title' => $this->t('Weather station'),
       '#description' => t('The weather station to query'),
       '#type' => 'textfield',
       '#default_value' => $this->config->get('weather_station'),
     );
 
     $form['threshold'] = array(
-      '#title' => t('Temperature threshold'),
-      '#description' => t('How cold it needs to be before we automatically close.'),
+      '#title' => $this->t('Temperature threshold'),
+      '#description' => $this->t('How cold it needs to be before we automatically close.'),
       '#type' => 'number',
       '#step' => 1,
       '#default_value' => $this->config->get('threshold'),
@@ -82,7 +82,7 @@ class WeatherForm extends ConfigFormBase {
 
     $form['message'] = array(
       '#title' => t('Message to display'),
-      '#description' => t('The message to show when it is too cold.'),
+      '#description' => $this->t('The message to show when it is too cold.'),
       '#type' => 'textarea',
       '#default_value' => $this->config->get('message'),
     );
