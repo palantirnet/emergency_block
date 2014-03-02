@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\violator_block;
+namespace Drupal\violator_block\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Config\ConfigFactory;
