@@ -4,6 +4,8 @@ namespace Drupal\violator_block\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Config\ConfigFactory;
+use Drupal\Core\KeyValueStore\StateInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Description of WeatherForm
@@ -20,14 +22,32 @@ class WeatherForm extends ConfigFormBase {
   protected $config;
 
   /**
+   * The state API store.
+   *
+   * @var \Drupal\Core\KeyValueStore\StateInterface
+   */
+  protected $state;
+
+  /**
    * Constructs a WeatherForm object.
    *
    * @param \Drupal\Core\Config\ConfigFactory $config_factory
    *   The factory for configuration objects.
    */
-  public function __construct(ConfigFactory $config_factory) {
+  public function __construct(ConfigFactory $config_factory, StateInterface $state) {
     parent::__construct($config_factory);
     $this->config = $this->config('violator_block.weather');
+    $this->state = $state;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('config.factory'),
+            $container->get('state')
+    );
   }
 
   /**
@@ -56,9 +76,13 @@ class WeatherForm extends ConfigFormBase {
       '#default_value' => $this->config->get('threshold'),
     );
 
+    $form['current'] = array(
+      '#markup' => $this->t('Current temperature: %temp F', ['%temp' => $this->state->get('violator_block.weather.temp', $this->t('No data available'))]),
+    );
+
     $form['message'] = array(
       '#title' => t('Message to display'),
-      '#description' => t('The message to show when it is too cold'),
+      '#description' => t('The message to show when it is too cold.'),
       '#type' => 'textarea',
       '#default_value' => $this->config->get('message'),
     );
