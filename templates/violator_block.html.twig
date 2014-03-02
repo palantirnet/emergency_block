@@ -1,0 +1,13 @@
+{% if emergency_status == 1 %}
+  <p class="violator-emergency">
+    {% trans %}
+      <strong>Warning:</strong> {{ message }}
+    {% endtrans %}
+  </p>
+{% else %}
+  <p class="violator-weather">
+    {% trans %}
+      <strong>Weather alert:</strong> {{ message }}
+    {% endtrans %}
+  </p>
+{% endif %}

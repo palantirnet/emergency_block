@@ -34,6 +34,18 @@ function violator_block_menu_link_defaults() {
 }
 
 /**
+ * Implements hook_theme().
+ */
+function violator_block_theme() {
+  $theme['violator_block'] = [
+    'variables' => array('message' => NULL, 'weather' => NULL, 'emergency_status' => NULL),
+    'template' => 'violator_block',
+  ];
+
+  return $theme;
+}
+
+/**
  * Implements hook_cron().
  */
 function violator_block_cron() {

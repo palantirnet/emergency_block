@@ -90,9 +90,17 @@ class EmergencyViolatorBlock extends BlockBase implements ContainerFactoryPlugin
   public function build() {
     $message = $this->state->get('violator_block.status') ? $this->state->get('violator_block.message') : $this->config->get('message');
 
-    return [
-      '#markup' => $message,
+    $return = [
+      '#theme' => 'violator_block',
+      '#message' => $message,
+      '#weather' => $this->weather->isTooCold(),
+      '#emergency_status' => $this->state->get('violator_block.status'),
     ];
+    $return['#attached']['css'] = array(
+      drupal_get_path('module', 'violator_block') . '/violator_block.css',
+    );
+
+    return $return;
   }
 
 }
