@@ -49,14 +49,16 @@ class ViolatorForm extends FormBase {
     $form['status'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Show violator'),
+      '#description' => $this->t('If checked, the emergency block will be shown.'),
       '#default_value' => $this->state->get('violator_block.status'),
     ];
 
-    $form['message'] = array(
+    $form['message'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Emergency message'),
+      '#description' => $this->t('The message to display when this block is enabled.'),
       '#default_value' => $this->state->get('violator_block.message'),
-    );
+    ];
 
     $form['submit'] = [
       '#type' => 'submit',
