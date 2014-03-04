@@ -76,7 +76,7 @@ class Weather {
     $temp = $this->state->get('violator_block.weather.temp');
     // We're not setting a default, so the default default is NULL. In that case
     // it's not too cold.
-    if ($temp && $temp <= $this->config->get('threshold')) {
+    if (!is_null($temp) && $temp <= $this->config->get('threshold')) {
       return TRUE;
     }
     return FALSE;
