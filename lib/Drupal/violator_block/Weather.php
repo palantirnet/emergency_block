@@ -61,7 +61,7 @@ class Weather {
 
       $this->state->set('violator_block.weather.temp', $temp);
     }
-    catch (Exception $e) {
+    catch (\Exception $e) {
       // @todo Error handling.
     }
   }
