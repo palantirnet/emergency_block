@@ -9,6 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\emergency_block\Weather;
 use Drupal\Core\Config\Config;
+use Drupal\Component\Utility\Xss;
 
 /**
  * Provides an emergency block.
@@ -89,6 +90,7 @@ class EmergencyBlock extends BlockBase implements ContainerFactoryPluginInterfac
    */
   public function build() {
     $message = $this->state->get('emergency_block.status') ? $this->state->get('emergency_block.message') : $this->config->get('message');
+    $message = Xss::filterAdmin($message);
 
     $return = [
       '#theme' => 'emergency_block',
