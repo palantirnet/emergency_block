@@ -1,15 +1,15 @@
 <?php
 
-namespace Drupal\violator_block\Form;
+namespace Drupal\emergency_block\Form;
 
 use Drupal\Core\Form\FormBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\KeyValueStore\StateInterface;
 
 /**
- * Configuration form for the violator status.
+ * Configuration form for the emergency block status.
  */
-class ViolatorForm extends FormBase {
+class EmergencyBlockForm extends FormBase {
 
   /**
    * The state API store.
@@ -19,7 +19,7 @@ class ViolatorForm extends FormBase {
   protected $state;
 
   /**
-   * Creates a new ViolatorForm.
+   * Creates a new EmergencyBlockForm.
    *
    * @param \Drupal\Core\KeyValueStore\StateInterface $state
    *   The state service.
@@ -39,7 +39,7 @@ class ViolatorForm extends FormBase {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'violator_block_form';
+    return 'emergency_block_form';
   }
 
   /**
@@ -48,16 +48,16 @@ class ViolatorForm extends FormBase {
   public function buildForm(array $form, array &$form_state) {
     $form['status'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Show violator'),
+      '#title' => $this->t('Show emergency block'),
       '#description' => $this->t('If checked, the emergency block will be shown.'),
-      '#default_value' => $this->state->get('violator_block.status'),
+      '#default_value' => $this->state->get('emergency_block.status'),
     ];
 
     $form['message'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Emergency message'),
       '#description' => $this->t('The message to display when this block is enabled.'),
-      '#default_value' => $this->state->get('violator_block.message'),
+      '#default_value' => $this->state->get('emergency_block.message'),
     ];
 
     $form['submit'] = [
@@ -72,7 +72,7 @@ class ViolatorForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, array &$form_state) {
-    $this->state->set('violator_block.status', $form_state['values']['status']);
-    $this->state->set('violator_block.message', $form_state['values']['message']);
+    $this->state->set('emergency_block.status', $form_state['values']['status']);
+    $this->state->set('emergency_block.message', $form_state['values']['message']);
   }
 }

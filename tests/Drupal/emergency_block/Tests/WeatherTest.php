@@ -3,17 +3,17 @@
 
 /**
  * @file
- * Contains \Drupal\violator_block\Tests\WeatherTest.
+ * Contains \Drupal\emergency_block\Tests\WeatherTest.
  */
 
-namespace Drupal\violator_block\Tests;
+namespace Drupal\emergency_block\Tests;
 
 use Drupal\Tests\UnitTestCase;
 
-use Drupal\violator_block\Weather;
+use Drupal\emergency_block\Weather;
 
 /**
- * Tests the Drupalgotchi block.
+ * Tests the Emergency block.
  */
 class HelloBlockTest extends UnitTestCase {
 
@@ -40,7 +40,7 @@ class HelloBlockTest extends UnitTestCase {
 
     $this->configFactory = $this->getConfigFactoryStub(
       array(
-        'violator_block.weather' => array(
+        'emergency_block.weather' => array(
           'weather_station' => '',
           'threshold' => 0,
           'message' => 'Cold',
@@ -50,7 +50,7 @@ class HelloBlockTest extends UnitTestCase {
 
     // Autoloading is not working for contrib. Load our class to test.
     // See https://drupal.org/node/2025883
-    //include_once DRUPAL_ROOT . '/modules/violator_block/lib/Drupal/violator_block/Weather.php';
+    //include_once DRUPAL_ROOT . '/modules/emergency_block/lib/Drupal/emergency_block/Weather.php';
   }
 
   /**
@@ -84,7 +84,7 @@ END;
 
     $state_stub->expects($this->any())
       ->method('set')
-      ->with($this->equalTo('violator_block.weather.temp'), $this->equalTo(42));
+      ->with($this->equalTo('emergency_block.weather.temp'), $this->equalTo(42));
 
     $weather = new Weather($guzzle, $state_stub, $this->configFactory, '');
 

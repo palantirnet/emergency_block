@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\violator_block\Form;
+namespace Drupal\emergency_block\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Config\ConfigFactory;
@@ -36,7 +36,7 @@ class WeatherForm extends ConfigFormBase {
    */
   public function __construct(ConfigFactory $config_factory, StateInterface $state) {
     parent::__construct($config_factory);
-    $this->config = $this->config('violator_block.weather');
+    $this->config = $this->config('emergency_block.weather');
     $this->state = $state;
   }
 
@@ -54,7 +54,7 @@ class WeatherForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function getFormID() {
-    return 'violator_block_weather';
+    return 'emergency_block_weather';
   }
 
   /**
@@ -77,7 +77,7 @@ class WeatherForm extends ConfigFormBase {
     );
 
     $form['current'] = array(
-      '#markup' => $this->t('Current temperature: %temp F', ['%temp' => $this->state->get('violator_block.weather.temp', $this->t('No data available'))]),
+      '#markup' => $this->t('Current temperature: %temp F', ['%temp' => $this->state->get('emergency_block.weather.temp', $this->t('No data available'))]),
     );
 
     $form['message'] = array(

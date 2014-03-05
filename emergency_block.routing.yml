@@ -1,0 +1,16 @@
+emergency_block.status:
+  path: /admin/config/system/emergency
+  defaults:
+    _form: Drupal\emergency_block\Form\EmergencyForm
+    _title: 'Emergency status'
+  requirements:
+    _permission: 'control emergency block'
+
+emergency_block.weather:
+  path: /admin/config/system/emergency-weather
+  defaults:
+    _form: Drupal\emergency_block\Form\WeatherForm
+    _title: 'emergency weather'
+  requirements:
+    _permission: 'administer emergency weather settings'
+

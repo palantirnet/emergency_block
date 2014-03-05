@@ -1,25 +1,25 @@
 <?php
 
-namespace Drupal\violator_block\Plugin\Block;
+namespace Drupal\emergency_block\Plugin\Block;
 
 use Drupal\block\BlockBase;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\KeyValueStore\StateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\violator_block\Weather;
+use Drupal\emergency_block\Weather;
 use Drupal\Core\Config\Config;
 
 /**
- * Provides an emergency violator block.
+ * Provides an emergency block.
  *
  * @Block(
- *   id = "violator_block_message",
- *   admin_label = @Translation("Emergency violator"),
+ *   id = "emergency_block_message",
+ *   admin_label = @Translation("Emergency message block"),
  *   category = @Translation("System")
  * )
  */
-class EmergencyViolatorBlock extends BlockBase implements ContainerFactoryPluginInterface {
+class EmergencyBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
    * The state API store.
@@ -31,19 +31,19 @@ class EmergencyViolatorBlock extends BlockBase implements ContainerFactoryPlugin
   /**
    * The weather service.
    *
-   * @var \Drupal\violator_block\Weather
+   * @var \Drupal\emergency_block\Weather
    */
   protected $weather;
 
   /**
-   * The config object for the violator weather service.
+   * The config object for the emergeny weather service.
    *
    * @var \Drupal\Core\Config
    */
   protected $config;
 
   /**
-   * Constructs a new EmergencyViolatorBlock.
+   * Constructs a new EmergencyBlock.
    *
    * @param array $configuration
    * @param type $plugin_id
@@ -67,8 +67,8 @@ class EmergencyViolatorBlock extends BlockBase implements ContainerFactoryPlugin
       $plugin_id,
       $plugin_definition,
       $container->get('state'),
-      $container->get('violator_block.weather'),
-      $container->get('config.factory')->get('violator_block.weather')
+      $container->get('emergency_block.weather'),
+      $container->get('config.factory')->get('emergency_block.weather')
     );
   }
 
@@ -76,7 +76,7 @@ class EmergencyViolatorBlock extends BlockBase implements ContainerFactoryPlugin
    * {@inheritdoc}
    */
   public function access(AccountInterface $account) {
-    return $this->weather->isTooCold() || $this->state->get('violator_block.status');
+    return $this->weather->isTooCold() || $this->state->get('emergency_block.status');
   }
 
   /**
@@ -88,16 +88,16 @@ class EmergencyViolatorBlock extends BlockBase implements ContainerFactoryPlugin
    * @see \Drupal\block\BlockViewBuilder
    */
   public function build() {
-    $message = $this->state->get('violator_block.status') ? $this->state->get('violator_block.message') : $this->config->get('message');
+    $message = $this->state->get('emergency_block.status') ? $this->state->get('emergency_block.message') : $this->config->get('message');
 
     $return = [
-      '#theme' => 'violator_block',
+      '#theme' => 'emergency_block',
       '#message' => $message,
       '#weather' => $this->weather->isTooCold(),
-      '#emergency_status' => $this->state->get('violator_block.status'),
+      '#emergency_status' => $this->state->get('emergency_block.status'),
     ];
     $return['#attached']['css'] = array(
-      drupal_get_path('module', 'violator_block') . '/violator_block.css',
+      drupal_get_path('module', 'emergency_block') . '/emergency_block.css',
     );
 
     return $return;

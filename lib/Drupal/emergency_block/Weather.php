@@ -1,13 +1,13 @@
 <?php
 
-namespace Drupal\violator_block;
+namespace Drupal\emergency_block;
 
 use Guzzle\Http\Client;
 use Drupal\Core\KeyValueStore\StateInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 
 /**
- * Configuration form for the weather option of the violator.
+ * Configuration form for the weather option of the emergency block.
  */
 class Weather {
 
@@ -45,7 +45,7 @@ class Weather {
   public function __construct(Client $guzzle, StateInterface $state, ConfigFactoryInterface $config_factory, $url) {
     $this->guzzle = $guzzle;
     $this->state = $state;
-    $this->config = $config_factory->get('violator_block.weather');
+    $this->config = $config_factory->get('emergency_block.weather');
     $this->url = $url;
   }
 
@@ -59,7 +59,7 @@ class Weather {
 
       $temp = $json['main']['temp'];
 
-      $this->state->set('violator_block.weather.temp', $temp);
+      $this->state->set('emergency_block.weather.temp', $temp);
     }
     catch (\Exception $e) {
       // @todo Error handling.
@@ -73,7 +73,7 @@ class Weather {
    *   TRUE if the temperature is below a configured threshold, FALSE otherwise.
    */
   public function isTooCold() {
-    $temp = $this->state->get('violator_block.weather.temp');
+    $temp = $this->state->get('emergency_block.weather.temp');
     // We're not setting a default, so the default default is NULL. In that case
     // it's not too cold.
     if (!is_null($temp) && $temp <= $this->config->get('threshold')) {

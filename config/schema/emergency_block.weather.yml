@@ -1,13 +1,13 @@
-violator_block.weather:
+emergency_block.weather:
   type: mapping
-  label: 'Violator Block weather configuration'
+  label: 'Emergency Block weather configuration'
   mapping:
     weather_station:
       type: string
       label: "The weather station name to check"
     threshold:
       type: integer
-      label: 'The temperature in Farenheit below which to show the violator notice'
+      label: 'The temperature in Farenheit below which to show the emergency notice'
     message:
       type: string
       label: "The message to show when it's too cold out"
