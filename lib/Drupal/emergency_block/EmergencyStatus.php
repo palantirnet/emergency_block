@@ -50,6 +50,27 @@ class EmergencyStatus {
     return $this->weather->isTooCold() || $this->state->get('emergency_block.status');
   }
 
+  /**
+   *
+   * @return string
+   *   A machine name for the reason the site is in emergency status, or FALSE
+   *   if it's not.
+   */
+  public function getReason() {
+    if ($this->state->get('emergency_block.status')) {
+      return 'admin';
+    }
+    if ($this->weather->isTooCold()) {
+      return 'weather';
+    }
+    return FALSE;
+  }
+
+  /**
+   * Returns the site's detailed emergency status message.
+   * @return string
+   *   The short emergency message.
+   */
   public function getMessage() {
     if ($this->isEmergency()) {
       return $this->state->get('emergency_block.status') ? $this->state->get('emergency_block.message') : $this->config->get('message');
@@ -57,11 +78,38 @@ class EmergencyStatus {
     return '';
   }
 
+  /**
+   * Returns the site's detailed emergency status message.
+   *
+   * @return string
+   *   The short emergency message.
+   */
+  public function getDetailedMessage() {
+    if ($this->isEmergency()) {
+      return $this->state->get('emergency_block.detailed_message');
+    }
+    return '';
+  }
+
+  /**
+   * Sets the short message for the site's emergency status.
+   *
+   * @param string $message
+   *   The message to set.
+   * @return static
+   */
   public function setMessage($message) {
     $this->state->set('emergency_block.message', $message);
     return $this;
   }
 
+  /**
+   * Sets the detailed message for the site's emergency status.
+   *
+   * @param string $message
+   *   The message to set.
+   * @return static
+   */
   public function setDetailedMessage($message) {
     $this->state->set('emergency_block.detailed_message', $message);
     return $this;

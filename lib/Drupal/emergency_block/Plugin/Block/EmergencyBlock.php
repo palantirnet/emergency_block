@@ -10,6 +10,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\emergency_block\Weather;
 use Drupal\Core\Config\Config;
 use Drupal\Component\Utility\Xss;
+use Drupal\emergency_block\EmergencyStatus;
 
 /**
  * Provides an emergency block.
@@ -23,25 +24,11 @@ use Drupal\Component\Utility\Xss;
 class EmergencyBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
-   * The state API store.
+   * The emergency service.
    *
-   * @var \Drupal\Core\KeyValueStore\StateInterface
+   * @var \Drupal\emergency_block\EmergencyStatus
    */
-  protected $state;
-
-  /**
-   * The weather service.
-   *
-   * @var \Drupal\emergency_block\Weather
-   */
-  protected $weather;
-
-  /**
-   * The config object for the emergeny weather service.
-   *
-   * @var \Drupal\Core\Config
-   */
-  protected $config;
+  protected $emergency;
 
   /**
    * Constructs a new EmergencyBlock.
@@ -52,11 +39,12 @@ class EmergencyBlock extends BlockBase implements ContainerFactoryPluginInterfac
    * @param \Drupal\Core\KeyValueStore\StateInterface $state
    *   The state service.
    */
-  public function __construct(array $configuration, $plugin_id, array $plugin_definition, StateInterface $state, Weather $weather, Config $config) {
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, EmergencyStatus $emergency) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->state = $state;
     $this->weather = $weather;
     $this->config = $config;
+    $this->emergency = $emergency;
   }
 
   /**
@@ -67,9 +55,7 @@ class EmergencyBlock extends BlockBase implements ContainerFactoryPluginInterfac
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('state'),
-      $container->get('emergency_block.weather'),
-      $container->get('config.factory')->get('emergency_block.weather')
+      $container->get('emergency')
     );
   }
 
@@ -77,7 +63,7 @@ class EmergencyBlock extends BlockBase implements ContainerFactoryPluginInterfac
    * {@inheritdoc}
    */
   public function access(AccountInterface $account) {
-    return $this->weather->isTooCold() || $this->state->get('emergency_block.status');
+    return $this->emergency->isEmergency();
   }
 
   /**
@@ -89,14 +75,13 @@ class EmergencyBlock extends BlockBase implements ContainerFactoryPluginInterfac
    * @see \Drupal\block\BlockViewBuilder
    */
   public function build() {
-    $message = $this->state->get('emergency_block.status') ? $this->state->get('emergency_block.message') : $this->config->get('message');
+    $message = $this->emergency->getMessage();
     $message = Xss::filterAdmin($message);
 
     $return = [
-      '#theme' => 'emergency_block',
+      '#theme' => 'emergency_block__' . $this->emergency->getReason(),
       '#message' => $message,
-      '#weather' => $this->weather->isTooCold(),
-      '#emergency_status' => $this->state->get('emergency_block.status'),
+      '#reason' => $this->emergency->getReason(),
     ];
     $return['#attached']['css'] = array(
       drupal_get_path('module', 'emergency_block') . '/emergency_block.css',
