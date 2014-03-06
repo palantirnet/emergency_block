@@ -60,6 +60,13 @@ class EmergencyBlockForm extends FormBase {
       '#default_value' => $this->state->get('emergency_block.message'),
     ];
 
+    $form['detailed_message'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Detailed message'),
+      '#description' => $this->t('A more detailed message to display on a dedicated page.'),
+      '#default_value' => $this->state->get('emergency_block.detailed_message'),
+    ];
+
     $form['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Save'),
@@ -74,5 +81,6 @@ class EmergencyBlockForm extends FormBase {
   public function submitForm(array &$form, array &$form_state) {
     $this->state->set('emergency_block.status', $form_state['values']['status']);
     $this->state->set('emergency_block.message', $form_state['values']['message']);
+    $this->state->set('emergency_block.detailed_message', $form_state['values']['detailed_message']);
   }
 }
