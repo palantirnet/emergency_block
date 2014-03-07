@@ -72,7 +72,7 @@ class EmergencyBlock extends BlockBase implements ContainerFactoryPluginInterfac
    * @see \Drupal\block\BlockViewBuilder
    */
   public function build() {
-    $message = $this->emergency->getMessage();
+    $message = $this->emergency->getCurrentMessage();
     $message = Xss::filterAdmin($message);
 
     $return = [

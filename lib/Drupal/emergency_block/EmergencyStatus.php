@@ -77,12 +77,22 @@ class EmergencyStatus {
   }
 
   /**
-   * Returns the site's detailed emergency status message.
+   * Returns the site's emergency status message.
    *
    * @return string
    *   The short emergency message.
    */
   public function getMessage() {
+    return $this->state->get('emergency_block.message');
+  }
+
+  /**
+   * Returns the current emergency status message to display.
+   *
+   * @return string
+   *   The short emergency message, if enabled.
+   */
+  public function getCurrentMessage() {
     if ($this->isEmergency()) {
       if ($this->state->get('emergency_block.status')) {
         return $this->state->get('emergency_block.message');
