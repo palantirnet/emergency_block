@@ -14,3 +14,11 @@ emergency_block.weather:
   requirements:
     _permission: 'administer emergency weather settings'
 
+emergency_block.page:
+  path: /emergency-status
+  defaults:
+    _content: Drupal\emergency_block\Controller\EmergencyController::page
+    _title: 'Current status'
+  requirements:
+    _permission: 'administer emergency weather settings'
+

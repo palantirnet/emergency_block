@@ -61,10 +61,11 @@ class EmergencyBlockForm extends FormBase {
     ];
 
     $form['detailed_message'] = [
-      '#type' => 'textarea',
+      '#type' => 'text_format',
       '#title' => $this->t('Detailed message'),
       '#description' => $this->t('A more detailed message to display on a dedicated page.'),
       '#default_value' => $this->emergency->getDetailedMessage(),
+      '#format' => $this->emergency->getDetailedMessageFormat(),
     ];
 
     $form['submit'] = [
@@ -79,9 +80,10 @@ class EmergencyBlockForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, array &$form_state) {
+
     $this->emergency
       ->setStatus($form_state['values']['status'])
       ->setMessage($form_state['values']['message'])
-      ->setDetailedMessage($form_state['values']['detailed_message']);
+      ->setDetailedMessage($form_state['values']['detailed_message']['value'], $form_state['values']['detailed_message']['format']);
   }
 }

@@ -107,6 +107,16 @@ class EmergencyStatus {
   }
 
   /**
+   * Returns the detailed message's text format.
+   *
+   * @return string
+   *   The machine name of the detailed message format.
+   */
+  public function getDetailedMessageFormat() {
+    return $this->state->get('emergency_block.detailed_message_format');
+  }
+
+  /**
    * Sets the short message for the site's emergency status.
    *
    * @param string $message
@@ -125,8 +135,9 @@ class EmergencyStatus {
    *   The message to set.
    * @return static
    */
-  public function setDetailedMessage($message) {
+  public function setDetailedMessage($message, $format) {
     $this->state->set('emergency_block.detailed_message', $message);
+    $this->state->set('emergency_block.detailed_message_format', $format);
     return $this;
   }
 
