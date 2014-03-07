@@ -110,10 +110,7 @@ class EmergencyStatus {
    *   The short emergency message.
    */
   public function getDetailedMessage() {
-    if ($this->isEmergency()) {
-      return $this->state->get('emergency_block.detailed_message');
-    }
-    return '';
+    return $this->state->get('emergency_block.detailed_message');
   }
 
   /**
