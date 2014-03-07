@@ -1,7 +1,7 @@
 emergency_block.status:
   path: /admin/config/system/emergency
   defaults:
-    _form: Drupal\emergency_block\Form\EmergencyForm
+    _form: Drupal\emergency_block\Form\EmergencyBlockForm
     _title: 'Emergency status'
   requirements:
     _permission: 'control emergency block'

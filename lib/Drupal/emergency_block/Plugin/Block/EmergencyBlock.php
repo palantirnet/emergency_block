@@ -41,9 +41,6 @@ class EmergencyBlock extends BlockBase implements ContainerFactoryPluginInterfac
    */
   public function __construct(array $configuration, $plugin_id, array $plugin_definition, EmergencyStatus $emergency) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->state = $state;
-    $this->weather = $weather;
-    $this->config = $config;
     $this->emergency = $emergency;
   }
 
@@ -55,7 +52,7 @@ class EmergencyBlock extends BlockBase implements ContainerFactoryPluginInterfac
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('emergency')
+      $container->get('emergency_block.status')
     );
   }
 
