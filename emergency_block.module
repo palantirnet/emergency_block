@@ -4,9 +4,6 @@
  * Implements hook_permission().
  */
 function emergency_block_permission() {
-  $perms['administer emergency weather settings'] = [
-    'title' => t('Set weather settings for the emergency block'),
-  ];
   $perms['control emergency block'] = [
     'title' => t('Enable or disable the emergency message'),
   ];
@@ -24,30 +21,6 @@ function emergency_block_menu_link_defaults() {
     'route_name' => 'emergency_block.status',
     'parent' => 'system.admin.config.system',
   );
-  $links['emergency_block.admin.weather'] = array(
-    'link_title' => 'Emergency weather',
-    'description' => 'Configure the emergency block weather usage.',
-    'route_name' => 'emergency_block.weather',
-    'parent' => 'system.admin.config.system',
-  );
+
   return $links;
-}
-
-/**
- * Implements hook_theme().
- */
-function emergency_block_theme() {
-  $theme['emergency_block'] = [
-    'variables' => array('message' => NULL, 'reason' => NULL),
-    'template' => 'emergency_block',
-  ];
-
-  return $theme;
-}
-
-/**
- * Implements hook_cron().
- */
-function emergency_block_cron() {
-  \Drupal::service('emergency_block.weather')->updateTemperature();
 }

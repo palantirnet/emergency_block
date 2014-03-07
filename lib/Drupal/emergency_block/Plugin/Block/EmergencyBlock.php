@@ -7,7 +7,7 @@ use Drupal\Core\Session\AccountInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Component\Utility\Xss;
-use Drupal\emergency_block\EmergencyStatus;
+use Drupal\Core\KeyValueStore\StateInterface;
 
 /**
  * Provides an emergency block.
@@ -21,11 +21,11 @@ use Drupal\emergency_block\EmergencyStatus;
 class EmergencyBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
-   * The emergency service.
+   * The state service.
    *
-   * @var \Drupal\emergency_block\EmergencyStatus
+   * @var \Drupal\Core\KeyValueStore\StateInterface
    */
-  protected $emergency;
+  protected $state;
 
   /**
    * Constructs a new EmergencyBlock.
@@ -36,9 +36,9 @@ class EmergencyBlock extends BlockBase implements ContainerFactoryPluginInterfac
    * @param \Drupal\Core\KeyValueStore\StateInterface $state
    *   The state service.
    */
-  public function __construct(array $configuration, $plugin_id, array $plugin_definition, EmergencyStatus $emergency) {
+  public function __construct(array $configuration, $plugin_id, array $plugin_definition, StateInterface $state) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->emergency = $emergency;
+    $this->state = $state;
   }
 
   /**
@@ -49,7 +49,7 @@ class EmergencyBlock extends BlockBase implements ContainerFactoryPluginInterfac
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('emergency_block.status')
+      $container->get('state')
     );
   }
 
@@ -57,7 +57,7 @@ class EmergencyBlock extends BlockBase implements ContainerFactoryPluginInterfac
    * {@inheritdoc}
    */
   public function access(AccountInterface $account) {
-    return $this->emergency->isEmergency();
+    return $this->state->get('emergency_block.status', FALSE);
   }
 
   /**
@@ -69,19 +69,12 @@ class EmergencyBlock extends BlockBase implements ContainerFactoryPluginInterfac
    * @see \Drupal\block\BlockViewBuilder
    */
   public function build() {
-    $message = $this->emergency->getCurrentMessage();
+    $message = $this->state->get('emergency_block.message');
     $message = Xss::filterAdmin($message);
 
-    $return = [
-      '#theme' => 'emergency_block__' . $this->emergency->getReason(),
-      '#message' => $message,
-      '#reason' => $this->emergency->getReason(),
+    return [
+      '#markup' => $message,
     ];
-    $return['#attached']['css'] = array(
-      drupal_get_path('module', 'emergency_block') . '/emergency_block.css',
-    );
-
-    return $return;
   }
 
 }
