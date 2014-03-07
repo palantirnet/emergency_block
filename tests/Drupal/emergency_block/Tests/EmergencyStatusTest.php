@@ -93,7 +93,7 @@ class EmergencyStatusTest extends UnitTestCase {
     $state_stub->expects($this->any())
       ->method('get')
       ->with($this->equalTo('emergency_block.status'))
-            ->will($this->returnValue(FALSE));
+      ->will($this->returnValue(FALSE));
 
     $weather_stub = $this
       ->getMockBuilder('Drupal\emergency_block\Weather')
@@ -121,7 +121,7 @@ class EmergencyStatusTest extends UnitTestCase {
     $state_stub->expects($this->any())
       ->method('get')
       ->with($this->equalTo('emergency_block.status'))
-            ->will($this->returnValue(FALSE));
+      ->will($this->returnValue(FALSE));
 
     $weather_stub = $this
       ->getMockBuilder('Drupal\emergency_block\Weather')

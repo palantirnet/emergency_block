@@ -63,7 +63,7 @@ class WeatherForm extends ConfigFormBase {
   public function buildForm(array $form, array &$form_state) {
     $form['weather_station'] = array(
       '#title' => $this->t('Weather station'),
-      '#description' => t('The weather station to query'),
+      '#description' => $this->t('The weather station to query'),
       '#type' => 'textfield',
       '#default_value' => $this->config->get('weather_station'),
     );
