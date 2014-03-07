@@ -4,11 +4,8 @@ namespace Drupal\emergency_block\Plugin\Block;
 
 use Drupal\block\BlockBase;
 use Drupal\Core\Session\AccountInterface;
-use Drupal\Core\KeyValueStore\StateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\emergency_block\Weather;
-use Drupal\Core\Config\Config;
 use Drupal\Component\Utility\Xss;
 use Drupal\emergency_block\EmergencyStatus;
 
