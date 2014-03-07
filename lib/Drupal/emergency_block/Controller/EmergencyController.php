@@ -5,6 +5,7 @@ namespace Drupal\emergency_block\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\emergency_block\EmergencyStatus;
+use Drupal\Core\Access\AccessInterface;
 
 /**
  * Controllers for the Emergency Block module.
@@ -33,6 +34,13 @@ class EmergencyController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static($container->get('emergency_block.status'));
+  }
+
+  /**
+   * Access callback; Allow access only if the site is in emergency mode.
+   */
+  public function access() {
+    return $this->emergency->isEmergency() ? AccessInterface::ALLOW : AccessInterface::DENY;
   }
 
   /**

@@ -20,5 +20,5 @@ emergency_block.page:
     _content: Drupal\emergency_block\Controller\EmergencyController::page
     _title: 'Current status'
   requirements:
-    _permission: 'administer emergency weather settings'
+    _custom_access: Drupal\emergency_block\Controller\EmergencyController::access
 
