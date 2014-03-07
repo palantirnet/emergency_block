@@ -41,6 +41,16 @@ class EmergencyStatus {
   }
 
   /**
+   * Returns the current emergency status.
+   *
+   * @return boolean
+   *   TRUE if the user-specified emergency status is set, FALSE otherwise.
+   */
+  public function getStatus() {
+    return $this->state->get('emergency_block.status', FALSE);
+  }
+
+  /**
    * Determines if the site is in emergency mode.
    *
    * @return boolean

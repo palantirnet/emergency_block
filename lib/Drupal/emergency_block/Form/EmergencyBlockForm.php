@@ -4,7 +4,7 @@ namespace Drupal\emergency_block\Form;
 
 use Drupal\Core\Form\FormBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\KeyValueStore\StateInterface;
+use Drupal\emergency_block\EmergencyStatus;
 
 /**
  * Configuration form for the emergency block status.
@@ -12,11 +12,11 @@ use Drupal\Core\KeyValueStore\StateInterface;
 class EmergencyBlockForm extends FormBase {
 
   /**
-   * The state API store.
+   * The emergency service.
    *
-   * @var \Drupal\Core\KeyValueStore\StateInterface
+   * @var \Drupal\emergency_block\EmergencyStatus
    */
-  protected $state;
+  protected $emergency;
 
   /**
    * Creates a new EmergencyBlockForm.
@@ -24,15 +24,15 @@ class EmergencyBlockForm extends FormBase {
    * @param \Drupal\Core\KeyValueStore\StateInterface $state
    *   The state service.
    */
-  public function __construct(StateInterface $state) {
-    $this->state = $state;
+  public function __construct(EmergencyStatus $emergency) {
+    $this->emergency = $emergency;
   }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static($container->get('state'));
+    return new static($container->get('emergency_block.status'));
   }
 
   /**
@@ -50,21 +50,21 @@ class EmergencyBlockForm extends FormBase {
       '#type' => 'checkbox',
       '#title' => $this->t('Show emergency block'),
       '#description' => $this->t('If checked, the emergency block will be shown.'),
-      '#default_value' => $this->state->get('emergency_block.status'),
+      '#default_value' => $this->emergency->getStatus(),
     ];
 
     $form['message'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Emergency message'),
       '#description' => $this->t('The message to display when this block is enabled.'),
-      '#default_value' => $this->state->get('emergency_block.message'),
+      '#default_value' => $this->emergency->getMessage(),
     ];
 
     $form['detailed_message'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Detailed message'),
       '#description' => $this->t('A more detailed message to display on a dedicated page.'),
-      '#default_value' => $this->state->get('emergency_block.detailed_message'),
+      '#default_value' => $this->emergency->getDetailedMessage(),
     ];
 
     $form['submit'] = [
@@ -79,8 +79,9 @@ class EmergencyBlockForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, array &$form_state) {
-    $this->state->set('emergency_block.status', $form_state['values']['status']);
-    $this->state->set('emergency_block.message', $form_state['values']['message']);
-    $this->state->set('emergency_block.detailed_message', $form_state['values']['detailed_message']);
+    $this->emergency
+      ->setStatus($form_state['values']['status'])
+      ->setMessage($form_state['values']['message'])
+      ->setDetailedMessage($form_state['values']['detailed_message']);
   }
 }
