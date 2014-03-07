@@ -78,13 +78,18 @@ class EmergencyStatus {
 
   /**
    * Returns the site's detailed emergency status message.
+   *
    * @return string
    *   The short emergency message.
    */
   public function getMessage() {
     if ($this->isEmergency()) {
-      return $this->state->get('emergency_block.status') ? $this->state->get('emergency_block.message') : $this->config->get('message');
+      if ($this->state->get('emergency_block.status')) {
+        return $this->state->get('emergency_block.message');
+      }
+      return $this->weather->getMessage();
     }
+
     return '';
   }
 

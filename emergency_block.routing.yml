@@ -10,7 +10,7 @@ emergency_block.weather:
   path: /admin/config/system/emergency-weather
   defaults:
     _form: Drupal\emergency_block\Form\WeatherForm
-    _title: 'emergency weather'
+    _title: 'Emergency weather'
   requirements:
     _permission: 'administer emergency weather settings'
 

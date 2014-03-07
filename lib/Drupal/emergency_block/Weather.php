@@ -82,4 +82,11 @@ class Weather {
     return FALSE;
   }
 
+  /**
+   * Returns the message to display when it's too cold.
+   */
+  public function getMessage() {
+    return $this->config->get('message');
+  }
+
 }
