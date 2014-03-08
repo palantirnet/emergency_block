@@ -38,7 +38,7 @@ function emergency_block_menu_link_defaults() {
  */
 function emergency_block_theme() {
   $theme['emergency_block'] = [
-    'variables' => array('message' => NULL, 'reason' => NULL),
+    'variables' => array('message' => NULL, 'reason' => NULL, 'link' => NULL),
     'template' => 'emergency_block',
   ];
 
