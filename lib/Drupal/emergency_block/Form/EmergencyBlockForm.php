@@ -21,8 +21,8 @@ class EmergencyBlockForm extends FormBase {
   /**
    * Creates a new EmergencyBlockForm.
    *
-   * @param \Drupal\Core\KeyValueStore\StateInterface $state
-   *   The state service.
+   * @param \Drupal\emergency_block\EmergencyStatus $emergency
+   *   The emergency service.
    */
   public function __construct(EmergencyStatus $emergency) {
     $this->emergency = $emergency;
@@ -60,14 +60,6 @@ class EmergencyBlockForm extends FormBase {
       '#default_value' => $this->emergency->getMessage(),
     ];
 
-    $form['detailed_message'] = [
-      '#type' => 'text_format',
-      '#title' => $this->t('Detailed message'),
-      '#description' => $this->t('A more detailed message to display on a dedicated page.'),
-      '#default_value' => $this->emergency->getDetailedMessage(),
-      '#format' => $this->emergency->getDetailedMessageFormat(),
-    ];
-
     $form['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Save'),
@@ -80,10 +72,8 @@ class EmergencyBlockForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, array &$form_state) {
-
     $this->emergency
       ->setStatus($form_state['values']['status'])
-      ->setMessage($form_state['values']['message'])
-      ->setDetailedMessage($form_state['values']['detailed_message']['value'], $form_state['values']['detailed_message']['format']);
+      ->setMessage($form_state['values']['message']);
   }
 }

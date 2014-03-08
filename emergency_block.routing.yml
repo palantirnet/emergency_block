@@ -5,20 +5,3 @@ emergency_block.status:
     _title: 'Emergency status'
   requirements:
     _permission: 'control emergency block'
-
-emergency_block.weather:
-  path: /admin/config/system/emergency-weather
-  defaults:
-    _form: Drupal\emergency_block\Form\WeatherForm
-    _title: 'Emergency weather'
-  requirements:
-    _permission: 'administer emergency weather settings'
-
-emergency_block.page:
-  path: /emergency-status
-  defaults:
-    _content: Drupal\emergency_block\Controller\EmergencyController::page
-    _title: 'Current status'
-  requirements:
-    _custom_access: Drupal\emergency_block\Controller\EmergencyController::access
-

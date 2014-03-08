@@ -1,9 +1,4 @@
 services:
-  emergency_block.weather:
-    class: Drupal\emergency_block\Weather
-    arguments: ['@http_default_client', '@state', '@config.factory', '%emergency_block.weather.url%']
   emergency_block.status:
     class: Drupal\emergency_block\EmergencyStatus
-    arguments: ['@state', '@emergency_block.weather']
-parameters:
-  emergency_block.weather.url: 'http://api.openweathermap.org/data/2.5/weather?units=imperial&q='
+    arguments: ['@state']
