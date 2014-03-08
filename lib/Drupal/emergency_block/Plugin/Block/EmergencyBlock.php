@@ -73,7 +73,7 @@ class EmergencyBlock extends BlockBase implements ContainerFactoryPluginInterfac
     $message = Xss::filterAdmin($message);
 
     $return = [
-      '#theme' => 'emergency_block__' . $this->emergency->getReason(),
+      '#theme' => 'emergency_block',
       '#message' => $message,
       '#reason' => $this->emergency->getReason(),
     ];
