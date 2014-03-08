@@ -2,4 +2,10 @@
   {% trans %}
     <strong>Warning:</strong> {{ message }}
   {% endtrans %}
+
+  {% if link|length > 0 %}
+    <div>
+      <a href="{{ link }}">{% trans %}More details{% endtrans %}</a>
+    </div>
+  {% endif %}
 </p>
