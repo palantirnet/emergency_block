@@ -87,7 +87,7 @@ class EmergencyBlock extends BlockBase implements ContainerFactoryPluginInterfac
     $link = ($this->emergency->getReason() == 'admin') ? $this->generator->generate('emergency_block.page') : '';
 
     $return = [
-      '#theme' => 'emergency_ block',
+      '#theme' => 'emergency_block',
       '#message' => $message,
       '#reason' => $this->emergency->getReason(),
       '#link' => $link,

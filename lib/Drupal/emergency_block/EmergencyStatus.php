@@ -16,16 +16,8 @@ class EmergencyStatus {
    */
   protected $state;
 
-  /**
-   * The weather service
-   *
-   * @var \Drupal\emergency_block\Weather
-   */
-  protected $weather;
-
-  public function __construct(StateInterface $state, Weather $weather) {
+  public function __construct(StateInterface $state) {
     $this->state = $state;
-    $this->weather = $weather;
   }
 
   /**
@@ -57,7 +49,7 @@ class EmergencyStatus {
    *   TRUE if the site is in emergency mode, FALSE otherwise.
    */
   public function isEmergency() {
-    return $this->weather->isTooCold() || $this->state->get('emergency_block.status');
+    return $this->state->get('emergency_block.status');
   }
 
   /**
@@ -69,9 +61,6 @@ class EmergencyStatus {
   public function getReason() {
     if ($this->state->get('emergency_block.status')) {
       return 'admin';
-    }
-    if ($this->weather->isTooCold()) {
-      return 'weather';
     }
     return FALSE;
   }
@@ -94,10 +83,7 @@ class EmergencyStatus {
    */
   public function getCurrentMessage() {
     if ($this->isEmergency()) {
-      if ($this->state->get('emergency_block.status')) {
-        return $this->state->get('emergency_block.message');
-      }
-      return $this->weather->getMessage();
+      return $this->state->get('emergency_block.message');
     }
 
     return '';
