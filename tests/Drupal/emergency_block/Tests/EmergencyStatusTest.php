@@ -37,20 +37,6 @@ class EmergencyStatusTest extends UnitTestCase {
    */
   protected function setUp() {
     parent::setUp();
-
-    $this->configFactory = $this->getConfigFactoryStub(
-      array(
-        'emergency_block.weather' => array(
-          'weather_station' => '',
-          'threshold' => 0,
-          'message' => 'Cold',
-        ),
-      )
-    );
-
-    // Autoloading is not working for contrib. Load our class to test.
-    // See https://drupal.org/node/2025883
-    //include_once DRUPAL_ROOT . '/modules/emergency_block/lib/Drupal/emergency_block/Weather.php';
   }
 
   /**
