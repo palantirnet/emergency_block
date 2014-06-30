@@ -2,8 +2,8 @@
 
 namespace Drupal\emergency_block;
 
-use Guzzle\Http\Client;
-use Drupal\Core\KeyValueStore\StateInterface;
+use Drupal\Core\Http\Client;
+use Drupal\Core\State\StateInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 
 /**
@@ -12,16 +12,16 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 class Weather {
 
   /**
-   * The Guzzle HTTP client.
+   * The HTTP client.
    *
-   * @var \Guzzle\Http\Client
+   * @var \Drupal\Core\Http\Client
    */
-  protected $guzzle;
+  protected $http_client;
 
   /**
    * The state API store.
    *
-   * @var \Drupal\Core\KeyValueStore\StateInterface
+   * @var \Drupal\Core\State\StateInterface
    */
   protected $state;
 
@@ -35,15 +35,15 @@ class Weather {
   /**
    * Constructs a new Weather object.
    *
-   * @param \Guzzle\Http\Client $guzzle
+   * @param \Drupal\Core\Http\Client $http_client
    *   The HTTP client.
-   * @param \Drupal\Core\KeyValueStore\StateInterface $state
+   * @param \Drupal\Core\State\StateInterface $state
    *   The State API store.
    * @param string $url
    *   The base URL from which to request weather data.
    */
-  public function __construct(Client $guzzle, StateInterface $state, ConfigFactoryInterface $config_factory, $url) {
-    $this->guzzle = $guzzle;
+  public function __construct(Client $http_client, StateInterface $state, ConfigFactoryInterface $config_factory, $url) {
+    $this->http_client = $http_client;
     $this->state = $state;
     $this->config = $config_factory->get('emergency_block.weather');
     $this->url = $url;
@@ -54,7 +54,7 @@ class Weather {
    */
   public function updateTemperature() {
     try {
-      $response = $this->guzzle->get($this->url . $this->config->get('weather_station'))->send();
+      $response = $this->http_client->get($this->url . $this->config->get('weather_station'));
       $json = $response->json();
 
       $temp = $json['main']['temp'];

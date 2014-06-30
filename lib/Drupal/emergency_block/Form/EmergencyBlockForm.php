@@ -20,9 +20,6 @@ class EmergencyBlockForm extends FormBase {
 
   /**
    * Creates a new EmergencyBlockForm.
-   *
-   * @param \Drupal\Core\KeyValueStore\StateInterface $state
-   *   The state service.
    */
   public function __construct(EmergencyStatus $emergency) {
     $this->emergency = $emergency;
