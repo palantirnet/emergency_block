@@ -2,7 +2,7 @@
 
 namespace Drupal\emergency_block\Plugin\Block;
 
-use Drupal\block\BlockBase;
+use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Session\AccountInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -43,7 +43,7 @@ class EmergencyBlock extends BlockBase implements ContainerFactoryPluginInterfac
    * @param array $plugin_definition
    * @param \Drupal\Core\State\StateInterface $state
    *   The state service.
-   * @param Drupal\Core\Routing\UrlGeneratorInterface $generator
+   * @param \Drupal\Core\Routing\UrlGeneratorInterface $generator
    *   The Url Generator service.
    */
   public function __construct(array $configuration, $plugin_id, array $plugin_definition, EmergencyStatus $emergency, UrlGeneratorInterface $generator) {

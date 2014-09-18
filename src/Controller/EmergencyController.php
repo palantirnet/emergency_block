@@ -15,7 +15,7 @@ class EmergencyController extends ControllerBase {
   /**
    * The emergency service.
    *
-   * @var Drupal\emergency_block\EmergencyStatus
+   * @var \Drupal\emergency_block\EmergencyStatus
    */
   protected $emergency;
 

@@ -6,7 +6,7 @@
  * Contains \Drupal\emergency_block\Tests\EmergencyStatusTest.
  */
 
-namespace Drupal\emergency_block\Tests;
+namespace Drupal\Tests\emergency_block\Unit;
 
 use Drupal\Tests\UnitTestCase;
 
