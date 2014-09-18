@@ -1,0 +1,11 @@
+emergency_block.status:
+  title: 'Emergency status'
+  parent: system.admin_config_system
+  description: 'Set the status of the emergency block.'
+  route_name: emergency_block.status
+
+emergency_block.weather:
+  title: 'Emergency weather'
+  parent: system.admin_config_system
+  description: 'Configure the emergency block weather usage.'
+  route_name: emergency_block.weather

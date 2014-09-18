@@ -1,7 +1,7 @@
 services:
   emergency_block.weather:
     class: Drupal\emergency_block\Weather
-    arguments: ['@http_default_client', '@state', '@config.factory', '%emergency_block.weather.url%']
+    arguments: ['@http_client', '@state', '@config.factory', '%emergency_block.weather.url%']
   emergency_block.status:
     class: Drupal\emergency_block\EmergencyStatus
     arguments: ['@state', '@emergency_block.weather']

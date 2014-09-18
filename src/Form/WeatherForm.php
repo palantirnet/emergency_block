@@ -4,7 +4,8 @@ namespace Drupal\emergency_block\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Config\ConfigFactory;
-use Drupal\Core\KeyValueStore\StateInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\State\StateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -24,7 +25,7 @@ class WeatherForm extends ConfigFormBase {
   /**
    * The state API store.
    *
-   * @var \Drupal\Core\KeyValueStore\StateInterface
+   * @var \Drupal\Core\State\StateInterface
    */
   protected $state;
 
@@ -60,7 +61,7 @@ class WeatherForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, array &$form_state) {
+  public function buildForm(array $form, FormStateInterface $form_state) {
     $form['weather_station'] = array(
       '#title' => $this->t('Weather station'),
       '#description' => $this->t('The weather station to query'),
@@ -93,11 +94,11 @@ class WeatherForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, array &$form_state) {
+  public function submitForm(array &$form, FormStateInterface $form_state) {
     parent::submitForm($form, $form_state);
 
     foreach (array('weather_station', 'threshold', 'message') as $key) {
-      $this->config->set($key, $form_state['values'][$key]);
+      $this->config->set($key, $form_state->getValue($key));
     }
 
     $this->config->save();

@@ -3,6 +3,7 @@
 namespace Drupal\emergency_block\Form;
 
 use Drupal\Core\Form\FormBase;
+use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\emergency_block\EmergencyStatus;
 
@@ -20,9 +21,6 @@ class EmergencyBlockForm extends FormBase {
 
   /**
    * Creates a new EmergencyBlockForm.
-   *
-   * @param \Drupal\Core\KeyValueStore\StateInterface $state
-   *   The state service.
    */
   public function __construct(EmergencyStatus $emergency) {
     $this->emergency = $emergency;
@@ -45,7 +43,7 @@ class EmergencyBlockForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, array &$form_state) {
+  public function buildForm(array $form, FormStateInterface $form_state) {
     $form['status'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Show emergency block'),
@@ -79,11 +77,10 @@ class EmergencyBlockForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, array &$form_state) {
-
+  public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->emergency
-      ->setStatus($form_state['values']['status'])
-      ->setMessage($form_state['values']['message'])
-      ->setDetailedMessage($form_state['values']['detailed_message']['value'], $form_state['values']['detailed_message']['format']);
+      ->setStatus($form_state->getValue('status'))
+      ->setMessage($form_state->getValue('message'))
+      ->setDetailedMessage($form_state->getValue(array('detailed_message','value')), $form_state->getValue(array('detailed_message','format')));
   }
 }

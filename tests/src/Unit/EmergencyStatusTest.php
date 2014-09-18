@@ -6,7 +6,7 @@
  * Contains \Drupal\emergency_block\Tests\EmergencyStatusTest.
  */
 
-namespace Drupal\emergency_block\Tests;
+namespace Drupal\Tests\emergency_block\Unit;
 
 use Drupal\Tests\UnitTestCase;
 
@@ -46,7 +46,7 @@ class EmergencyStatusTest extends UnitTestCase {
     // Set a mock class for the state container.
     // See http://phpunit.de/manual/current/en/test-doubles.html
     $state_stub = $this
-      ->getMockBuilder('\Drupal\Core\KeyValueStore\StateInterface')
+      ->getMockBuilder('\Drupal\Core\State\StateInterface')
       ->getMock();
 
     $state_stub->expects($this->any())
@@ -73,7 +73,7 @@ class EmergencyStatusTest extends UnitTestCase {
     // Set a mock class for the state container.
     // See http://phpunit.de/manual/current/en/test-doubles.html
     $state_stub = $this
-      ->getMockBuilder('\Drupal\Core\KeyValueStore\StateInterface')
+      ->getMockBuilder('\Drupal\Core\State\StateInterface')
       ->getMock();
 
     $state_stub->expects($this->any())
@@ -101,7 +101,7 @@ class EmergencyStatusTest extends UnitTestCase {
     // Set a mock class for the state container.
     // See http://phpunit.de/manual/current/en/test-doubles.html
     $state_stub = $this
-      ->getMockBuilder('\Drupal\Core\KeyValueStore\StateInterface')
+      ->getMockBuilder('\Drupal\Core\State\StateInterface')
       ->getMock();
 
     $state_stub->expects($this->any())

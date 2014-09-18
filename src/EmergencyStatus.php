@@ -2,7 +2,7 @@
 
 namespace Drupal\emergency_block;
 
-use Drupal\Core\KeyValueStore\StateInterface;
+use Drupal\Core\State\StateInterface;
 
 /**
  * Domain object for the emergency status of the site.
@@ -12,7 +12,7 @@ class EmergencyStatus {
   /**
    * The state service.
    *
-   * @var \Drupal\Core\KeyValueStore\StateInterface
+   * @var \Drupal\Core\State\StateInterface
    */
   protected $state;
 
